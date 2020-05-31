@@ -40,6 +40,10 @@ double max_depth_range;
 bool use_dynamic_range;
 int colormap;
 
+//TODO Implementar services ! 
+// Start REC
+// Stop REC
+// Capture Image
 
 void callback(const sensor_msgs::ImageConstPtr& image_msg)
 {
