@@ -4,13 +4,31 @@ project(image_view)
 find_package(catkin REQUIRED COMPONENTS camera_calibration_parsers cv_bridge dynamic_reconfigure image_transport message_filters message_generation nodelet rosconsole roscpp std_srvs stereo_msgs)
 generate_dynamic_reconfigure_options(cfg/ImageView.cfg)
 
-catkin_package(CATKIN_DEPENDS dynamic_reconfigure)
+
 find_package(Boost REQUIRED COMPONENTS thread)
 find_package(OpenCV REQUIRED)
+
+add_service_files(
+	FILES
+	video_controller.srv
+)
+
+
+generate_messages(
+	DEPENDENCIES
+	std_msgs
+	)
+
+catkin_package(
+		CATKIN_DEPENDS 
+		dynamic_reconfigure 
+		message_runtime
+		) # pra q isso ?
 
 include_directories(${Boost_INCLUDE_DIRS}
                     ${catkin_INCLUDE_DIRS}
                     ${OpenCV_INCLUDE_DIRS}
+					include
 )
 
 # Extra tools
@@ -28,6 +46,7 @@ add_executable(video_recorder src/nodes/video_recorder.cpp)
 target_link_libraries(video_recorder ${catkin_LIBRARIES}
                                      ${OpenCV_LIBRARIES}
 )
+add_dependencies(video_recorder image_view_generate_messages_cpp)
 
 install(TARGETS extract_images image_saver video_recorder
         DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -54,6 +73,8 @@ target_link_libraries(image_view ${catkin_LIBRARIES}
                                  ${OpenCV_LIBRARIES}
                                  ${Boost_LIBRARIES}
 )
+
+
 add_dependencies(image_view ${PROJECT_NAME}_gencfg)
 install(TARGETS image_view
         ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}

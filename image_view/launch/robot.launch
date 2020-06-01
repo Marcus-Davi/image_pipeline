@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+		<!-- Liga a webcam e publica as paradas -->
+		<node pkg="usb_cam" name="usb_cam" type="usb_cam_node" >
+		<param name="video_device" value="/dev/video0" />
+		<param name="image_width" value="640" />
+		<param name="image_height" value="480" />
+		<param name="pixel_format" value="yuyv" />
+		<param name="camera_frame_id" value="usb_cam" />
+		<param name="io_method" value="mmap"/>
+		</node>
+
+		<node pkg="image_view" type="video_recorder" name="video_recorder_0" output="screen" >
+		<remap from="image" to="/usb_cam/image_raw" />
+		<param name="filename" type="string" value="/home/projeto/Workspace/Coding/DunaRobot/video.avi" />
+		</node> 
+
+<node pkg="image_view" type="image_saver" name="image_saver_0" output="screen" >
+		<remap from="image" to="/usb_cam/image_raw" />
+		<param name="save_all_image" type="bool" value="false" />
+		<param name="filename" type="string" value="/home/projeto/Workspace/Coding/Dunarobot" />
+</node>
+
+
+</launch>

@@ -31,6 +31,7 @@
 *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 *  POSSIBILITY OF SUCH DAMAGE.
 *********************************************************************/
+#include "ros/init.h"
 #include <opencv2/highgui/highgui.hpp>
 
 #include <ros/ros.h>
@@ -188,7 +189,7 @@ private:
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "image_saver"); //Removed anonymousity
+  ros::init(argc, argv, "image_saver", ros::init_options::AnonymousName); 
   ros::NodeHandle nh;
   image_transport::ImageTransport it(nh);
   std::string topic = nh.resolveName("image");
