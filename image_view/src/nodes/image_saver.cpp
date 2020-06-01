@@ -188,7 +188,7 @@ private:
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "image_saver", ros::init_options::AnonymousName);
+  ros::init(argc, argv, "image_saver"); //Removed anonymousity
   ros::NodeHandle nh;
   image_transport::ImageTransport it(nh);
   std::string topic = nh.resolveName("image");
