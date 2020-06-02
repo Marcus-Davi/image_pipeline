@@ -183,7 +183,7 @@ int main(int argc, char** argv)
 
 		image_transport::ImageTransport it(nh);
 		std::string topic = nh.resolveName("image");
-		image_transport::Subscriber sub_image = it.subscribe(topic, 1, callback);
+		image_transport::Subscriber sub_image = it.subscribe(topic, 10, callback);
 
 		ROS_INFO_STREAM("Waiting for topic " << topic << "...");
 		// New Service
